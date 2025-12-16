@@ -6,8 +6,7 @@ resources:
 namePrefix: prod-
 images:
   - name: nginx
-    newName: nginx-stable
     newTag: stable
 replicas:
-- name: nginx-name
+- name: nginx
   count: 5
