@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
 - deployment.yaml
 - service.yaml
+- grafana.yaml
 
 
 configMapGenerator:
@@ -13,3 +14,15 @@ labels:
 - includeSelectors: true
   pairs:
     app: kube-roguelite
+
+images:
+- name: grafana
+  newTag: "12.1"
+
+patches:
+- patch: |-
+    - op: replace
+      path: /spec/resources/requests/storage
+      value: 2 Gi 
+  target:
+    kind: PersistentVolumeClaim

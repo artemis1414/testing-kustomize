@@ -21,3 +21,13 @@ spec:
           ports:
             - containerPort: 80
               name: nginx
+          env:
+            - name: DB_HOST
+              value: http://localhost
+          livenessProbe:
+            exec:
+              command:
+                - cat
+                - /tmp/healthy
+            initialDelaySeconds: 5
+            periodSeconds: 5

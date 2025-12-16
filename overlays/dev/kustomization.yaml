@@ -4,3 +4,19 @@ resources:
   - ../../base
 
 namePrefix: dev-
+
+patches:
+- path: patch-remove-probe.yaml
+  target:
+    kind: Deployment
+
+replacements:
+- source:
+    kind: Service
+    name: nginx
+  targets:
+  - select:
+      kind: Deployment
+      name: nginx
+    fieldPaths:
+    - spec.template.spec.containers.*.env.[name=DB_HOST].value

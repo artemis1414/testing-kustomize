@@ -10,3 +10,18 @@ images:
 replicas:
 - name: nginx
   count: 5
+
+replacements:
+- source:
+    kind: Service
+    name: nginx
+  targets:
+  - select:
+      kind: Deployment
+      name: nginx
+    fieldPaths:
+    - spec.template.spec.containers.*.env.[name=DB_HOST].value
+
+patches:
+- path: sidecar-patch.yaml
+
